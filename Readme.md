@@ -51,7 +51,7 @@ The code is released under a permissive MIT License to promote reuse and further
 The repository is organized into two main branches:
 
 - `master/` : main source codes,
-- `experiments/` : scripts to reproduce the numerical experiments'
+- `experiments/` : scripts to reproduce the numerical experiments.
 
 ## Requirements
 

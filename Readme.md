@@ -3,8 +3,13 @@
 This repository contains the Python codes used in the numerical experiments
 of the papers
 
-> Diego Febbe, Duccio Fanelli, Timoteo Carletti, *Exploring Simplicial Complexes by wandering across the dimensions*, arXiv, 2026.
-> Diego Febbe, Duccio Fanelli, Timoteo Carletti, *Simplicial Complexes with dimension-wise preferential attachment*, arXiv, 2026.
+> Diego Febbe, Duccio Fanelli, Timoteo Carletti,  
+> *Exploring Simplicial Complexes by wandering across the dimensions*,  
+> arXiv, 2026.
+>
+> Diego Febbe, Duccio Fanelli, Timoteo Carletti,  
+> *Simplicial Complexes with dimension-wise preferential attachment*,  
+> arXiv, 2026.
 
 If you use this code, please cite these papers (bibtex are in section Reference).
 
@@ -25,6 +30,7 @@ The code is released under a permissive MIT License to promote reuse and further
 
 ## Reference
 
+```bibtex
 @article{febbe2026exploring,
   author  = {Febbe, Diego and Fanelli, Duccio and Carletti, Timoteo},
   title   = {Exploring Simplicial Complexes by wandering across the dimensions},
@@ -38,12 +44,13 @@ The code is released under a permissive MIT License to promote reuse and further
   journal = {arXiv},
   year    = {2026},
 }
+```
 
 ## Organization into branches
 
 The repository is organized into two main branches:
 
-- `main/` : main source codes,
+- `master/` : main source codes,
 - `experiments/` : scripts to reproduce the numerical experiments'
 
 ## Requirements

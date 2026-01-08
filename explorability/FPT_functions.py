@@ -75,14 +75,17 @@ def time_i_j_theoretical(G, i, j):
     H_ij = 2 * m * total
     return H_ij
 
-def matrix_FPT_zhang(G, simulated_flag=True):
+def matrix_FPT_zhang(G, simulated_flag=True, len_subset_nodes=None):
     """
     Compute the matrix of first passage times for all pairs of nodes in graph G.
     The theoretical time is computed according to:
     Zhang, Zhongzhi, et al. "Mean first-passage time for random walks on undirected networks."
     The European Physical Journal B 84.4 (2011): 691-697.
     """
-    N = G.number_of_nodes()
+    if len_subset_nodes is None:
+        N = G.number_of_nodes()
+    else:
+        N = len_subset_nodes
     matrix_FPT = np.zeros((N, N))
     for i in range(N):
         for j in range(N):
@@ -225,99 +228,3 @@ def weighted_mean_FPT_j_with_nodes_to_nodes(matrix_FPT, G, n_n, n_l, n_tr, n_te)
     norm = [1 - prob_init[i] * K / (2 * n_l) for i in end_indices]
     T_j = K / (2 * n_l) * T_j / norm
     return T_j
-
-#%%
-A = np.loadtxt('Data/adjacency_simplex_10.txt', delimiter=',')
-# A = np.array([[0, 0, 1],
-#               [0, 0, 1],
-#               [1, 1, 0]])
-G = nx.from_numpy_array(A)
-
-N_n, N_l, N_tr, N_te = np.loadtxt('Data/simplex_structure_10.txt', dtype = np.int32) #[2,1,0,0]
-
-## Check the First Passage Time for each pair of nodes
-T_matrix_theo = matrix_FPT_zhang(G, simulated_flag=False)
-T_matrix_simul = matrix_FPT_zhang(G, simulated_flag=True)
-
-#%%
-plt.plot(T_matrix_theo.flatten(), T_matrix_simul.flatten(), 'o')
-plt.plot(T_matrix_theo.flatten(), T_matrix_theo.flatten(), '-')
-plt.grid()
-plt.title('First Passage Times', fontsize=15)
-plt.xlabel('Theoretical', fontsize=15)
-plt.ylabel('Simulated', fontsize=15)
-plt.show()
-
-#%%
-## Check the First Trapping Time to a certain node (each of a given set) starting from a given set
-mean_uniform_T_j_theo = uniform_mean_FPT_j(T_matrix_theo, set_start=None, set_end=None)
-mean_uniform_T_j_simul = simulate_uniform_mean_FPT_j(G, set_start=None, set_end=None)
-
-#%%
-plt.plot(mean_uniform_T_j_theo, mean_uniform_T_j_simul, 'o')
-plt.plot(mean_uniform_T_j_theo, mean_uniform_T_j_theo, '-')
-plt.grid()
-plt.title('Uniform First Trapping Times', fontsize=15)
-plt.xlabel('Theoretical', fontsize=15)
-plt.ylabel('Simulated', fontsize=15)
-plt.show()
-
-#%%
-mean_weighted_T_j_simul = simulate_weighted_mean_FPT_j(G, set_start=None, set_end=None)
-mean_weighted_T_j_theo = weighted_mean_FPT_j(T_matrix_theo, G, set_start=None, set_end=None)
-#%%
-plt.plot(mean_weighted_T_j_theo, mean_weighted_T_j_simul, 'o')
-plt.plot(mean_weighted_T_j_theo, mean_weighted_T_j_theo, '-')
-plt.grid()
-plt.title('Weighted Firs Trapping Times', fontsize=15)
-plt.xlabel('Theoretical', fontsize=15)
-plt.ylabel('Simulated', fontsize=15)
-plt.show()
-#%%
-
-# mean_weighted_T_j_simul_nodes = simulate_weighted_mean_FPT_j(G, set_start=np.arange(0,N_n), set_end=np.arange(0,N_n))
-mean_weighted_T_j_theo_nodes = weighted_mean_FPT_j(T_matrix_theo, G, set_start=np.arange(0,N_n), set_end=np.arange(0,N_n))
-mean_weighted_T_j_simplex = weighted_mean_FPT_j_with_nodes_to_nodes(T_matrix_theo, G, N_n, N_l, N_tr, N_te)
-plt.plot(mean_weighted_T_j_theo_nodes, mean_weighted_T_j_simplex, 'o')
-plt.plot(mean_weighted_T_j_theo_nodes, mean_weighted_T_j_theo_nodes, '-')
-plt.grid()
-plt.title('Weighted formula check', fontsize=15)
-plt.xlabel('Theoretical', fontsize=15)
-plt.ylabel('New Formula', fontsize=15)
-plt.show()
-
-#%%
-##Nodes
-## Check the First Trapping Time to a certain node (each of a given set) starting from a given set
-mean_uniform_T_j_theo = uniform_mean_FPT_j(T_matrix_theo, set_start=np.arange(0, N_n), set_end=np.arange(0, N_n))
-mean_uniform_T_j_simul = simulate_uniform_mean_FPT_j(G, set_start=np.arange(0, N_n), set_end=np.arange(0, N_n), n_simul=50000)
-
-#%%
-plt.plot(mean_uniform_T_j_theo, mean_uniform_T_j_simul, 'o')
-plt.plot(mean_uniform_T_j_theo, mean_uniform_T_j_theo, '-')
-plt.grid()
-plt.title('Uniform First Trapping Times', fontsize=15)
-plt.xlabel('Theoretical', fontsize=15)
-plt.ylabel('Simulated', fontsize=15)
-plt.show()
-
-#%%
-mean_weighted_T_j_simul = simulate_weighted_mean_FPT_j(G, set_start=np.arange(0, N_n), set_end=np.arange(0, N_n), n_simul=50000)
-mean_weighted_T_j_theo = weighted_mean_FPT_j(T_matrix_theo, G, set_start=np.arange(0, N_n), set_end=np.arange(0, N_n), )
-#%%
-plt.plot(mean_weighted_T_j_theo, mean_weighted_T_j_simul, 'o')
-plt.plot(mean_weighted_T_j_theo, mean_weighted_T_j_theo, '-')
-plt.grid()
-plt.title('Weighted First Trapping Times', fontsize=15)
-plt.xlabel('Theoretical', fontsize=15)
-plt.ylabel('Simulated', fontsize=15)
-plt.show()
-
-#%%
-plt.plot(mean_uniform_T_j_theo, mean_weighted_T_j_simul, 'o')
-plt.plot(mean_uniform_T_j_theo, mean_uniform_T_j_theo, '-')
-plt.grid()
-plt.title('Difference uniform weighted', fontsize=15)
-plt.xlabel('Uniform', fontsize=15)
-plt.ylabel('Weighted', fontsize=15)
-plt.show()

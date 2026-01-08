@@ -6,7 +6,7 @@ Diego Febbe, Duccio Fanelli, Timoteo Carletti, "Simplicial Complexes with dimens
 
 If you use this code, please cite the above works (bibtex in README file).
 """
-
+from bootstrap import ensure_root_on_path; ensure_root_on_path() # if you don't use PyCharm
 from build_simplex_graph import define_simplex_graph, define_graph
 from explorability.FPT_with_teleportation_functions import (transition_matrix, matrix_FPT_fanelli,
                                                             noise_matrix_fun, coefficient_for_minimum,
@@ -27,9 +27,8 @@ N_0 = 4 if kwargs['initialization'] == 'tetrahedron' else 3 if kwargs['initializ
 if p_3>0 and kwargs['initialization'] not in ['triangle', 'tetrahedron']:
     raise ValueError("To have p_3>0 the initialization must be 'triangle' or 'tetrahedron'")
 N_increase = max(N - N_0, 0)
-alpha_vec = np.linspace(0., 1., 31)
-# alpha_vec[0] = 0.01
-delta = 0.05  # noise parameter
+alpha_vec = np.linspace(0., 1., 101)
+delta = 0.1  # noise parameter
 AST_graph_list = np.zeros((n_exp, len(alpha_vec)))
 AST_simplex_list = np.zeros((n_exp, len(alpha_vec)))
 for i in range(n_exp):
@@ -41,7 +40,6 @@ for i in range(n_exp):
     noise_mat_simplex, delta = noise_matrix_fun(N_simplices, delta, safe_flag=True, connected_flag=True)
     for j, alpha in enumerate(alpha_vec):
         print(f'alpha: {alpha:.3f}')
-        # alpha = 0.001 if alpha == 0.0 else alpha
         transition_matrix_simplex = transition_matrix(simplex_graph, alpha, delta, noise_matrix=noise_mat_simplex)
         transition_matrix_graph = transition_matrix(graph, alpha, delta, noise_matrix=noise_mat_graph)
         FPT_simplex = matrix_FPT_fanelli(transition_matrix_simplex, dim_input_target)

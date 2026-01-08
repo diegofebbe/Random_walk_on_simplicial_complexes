@@ -6,6 +6,7 @@ Diego Febbe, Duccio Fanelli, Timoteo Carletti, "Simplicial Complexes with dimens
 
 If you use this code, please cite the above works (bibtex in README file).
 """
+from bootstrap import ensure_root_on_path; ensure_root_on_path() # if you don't use PyCharm
 from build_simplex_graph import define_simplex_graph, define_graph
 from explorability.FPT_with_teleportation_functions import (transition_matrix, matrix_FPT_fanelli,
                                                             noise_matrix_fun)
@@ -13,8 +14,8 @@ from triangle_probabilities_plot import plot_triangle_probabilites
 import matplotlib.pyplot as plt
 import numpy as np
 #%%
-delta = 0.9
-N_experiments = 3
+delta = 0.1
+N_experiments = 5
 N = 50
 alpha_vec = np.linspace(0, 1., 11)
 p_1_vec = np.arange(0, 1.1, 0.1)

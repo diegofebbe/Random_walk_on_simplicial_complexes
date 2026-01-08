@@ -6,7 +6,7 @@ Diego Febbe, Duccio Fanelli, Timoteo Carletti, "Simplicial Complexes with dimens
 
 If you use this code, please cite the above works (bibtex in README file).
 """
-
+from bootstrap import ensure_root_on_path; ensure_root_on_path() # if you don't use PyCharm
 from build_simplex_graph import define_simplex
 import matplotlib.pyplot as plt
 import numpy as np

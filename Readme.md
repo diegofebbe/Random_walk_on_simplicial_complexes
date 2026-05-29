@@ -6,10 +6,12 @@ of the papers
 > Diego Febbe, Duccio Fanelli, Timoteo Carletti,  
 > *Random Walks Across Dimensions: Exploring Simplicial Complexes*,  
 > arXiv:2601.16086
+> 2026
 >
 > Diego Febbe, Duccio Fanelli, Timoteo Carletti,  
 > *Simplicial Complexes with dimension-wise preferential attachment*,  
-> [article in submission], 2026.
+> arXiv preprint arXiv:2605.17004
+> 2026
 
 If you use this code, please cite these papers (bibtex are in section Reference).
 
@@ -38,11 +40,11 @@ The code is released under a permissive MIT License to promote reuse and further
   year    = {2026},
 }
 
-@article{febbe2026simplicial,
-  author  = {Febbe, Diego and Fanelli, Duccio and Carletti, Timoteo},
-  title   = {Simplicial Complexes with dimension-wise preferential attachments},
-  journal = {[article in submission]},
-  year    = {2026},
+@article{febbe2026model,
+  title={Model of Simplicial Complexes with dimension-wise preferential attachment},
+  author={Febbe, Diego and Fanelli, Duccio and Carletti, Timoteo},
+  journal={arXiv preprint arXiv:2605.17004},
+  year={2026}
 }
 ```
 
